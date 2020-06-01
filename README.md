@@ -1,4 +1,4 @@
-# Welcome to CSS au Déjeuner
+# Welcome to CSS Cantine
 
 Ceci est une version française avec des exemples modifiés de [cssdiner.com](http://cssdiner.com/)
 
