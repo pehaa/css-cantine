@@ -368,7 +368,6 @@ function fireRule(rule) {
   // var baseTable = $('.table-wrapper > .table, .table-wrapper > .nametags, .table-wrapper > .table-surface');
   var baseTable = $(".table")
 
-  console.log(rule)
   if (
     rule.indexOf(":last") !== rule.indexOf(":last-") ||
     rule.indexOf(":first") !== rule.indexOf(":first-")
