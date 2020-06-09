@@ -279,6 +279,47 @@ var levels = [
     `,
   },
   {
+    doThis: "... et tous les cupcakes posés après le toast.",
+    selector: "toast ~ cupcake",
+    helpTitle: "cible des éléments suivants",
+    selectorName: "en anglais : General sibling combinator",
+    syntax: "A ~ B",
+    help:
+      "A ~ B cible tous les éléments <strong>B</strong> qui suivent les <strong>A</strong>.",
+    examples: [
+      "<strong>h2  ~ p</strong> cible tous les paragraphes qui suivent h2 (et sont au sein du même élément parent)",
+    ],
+    boardMarkup: `
+    <boite />
+    <cupcake />
+    <toast/>
+    <cupcake />
+    <cupcake class="mini"/>
+    <cupcake />
+    `,
+  },
+  {
+    doThis: "... et toutes le mignardises posées après le boite.",
+    selector: "boite ~ .mini",
+    helpTitle: "cible des éléments suivants",
+    selectorName: "en anglais : General sibling combinator",
+    syntax: "A ~ B",
+    help:
+      "A ~ B cible tous les éléments <strong>B</strong> qui suivent les <strong>A</strong>.",
+    examples: [
+      "<strong>h2  ~ p</strong> cible tous les paragraphes qui suivent h2 (et sont au sein du même élément parent)",
+    ],
+    boardMarkup: `
+    <cupcake class="mini"/>
+    <boite />
+    <cupcake class="mini" />
+    <toast class="mini"/>
+    <cupcake />
+    <cupcake class="mini"/>
+    <cupcake class="mini"/>
+    `,
+  },
+  {
     selectorName: "en anglais : First Child Pseudo-selector",
     helpTitle:
       "cible l'élément qui est le premier enfant de son élément parent",
@@ -311,6 +352,54 @@ var levels = [
     boardMarkup: `
     <assiette />
     <assiette />
+    <assiette />
+    `,
+  },
+  {
+    selectorName: "en anglais : nth Child Pseudo-selector",
+    helpTitle:
+      "Cible l'élément qui est l'enfant numéro ... de son élément parent",
+    doThis: "Je prendrai bien la 3e assiette, svp.",
+    selector: "assiette:nth-child(3)",
+    syntax: ":nth-child(..)",
+    examples: [
+      "<strong>:nth-child(2)</strong> cible tous les éléments qui sont les 2e enfants de leur parent.",
+      "<strong>p:nth-child(2)</strong> cible tous les paragraphes qui sont les 2e enfants de leur parent.",
+      "<strong>div p:nth-child(2)</strong> cible tous les paragraphes qui sont les 2e enfants d'un <tag>div</tag>.",
+      "<strong>:nth-child(2n)</strong> cible tous les éléments qui sont les enfants pairs de leur parent.",
+      "<strong>:nth-child(2n+1)</strong> cible tous les éléments qui sont les enfants impairs de leur parent.",
+      "<strong>:nth-child(3n+1)</strong> cible tous les éléments qui sont les enfants numéro 1, 4, 7, 10, 13, ... de leur parent.",
+    ],
+    boardMarkup: `
+    <assiette />
+    <assiette />
+    <assiette />
+<assiette />
+    <assiette />
+    `,
+  },
+  {
+    selectorName: "en anglais : nth Child Pseudo-selector",
+    helpTitle:
+      "Cible l'élément qui est l'enfant numéro ... de son élément parent",
+    doThis: "Je prendrai bien la 1e, 3e et 5e assiette, svp.",
+    selector: "assiette:nth-child(2n+1)",
+    syntax: ":nth-child(..)",
+    examples: [
+      "<strong>:nth-child(2)</strong> cible tous les éléments qui sont les 2e enfants de leur parent.",
+      "<strong>p:nth-child(2)</strong> cible tous les paragraphes qui sont les 2e enfants de leur parent.",
+      "<strong>div p:nth-child(2)</strong> cible tous les paragraphes qui sont les 2e enfants d'un <tag>div</tag>.",
+      "<strong>:nth-child(2n)</strong> cible tous les éléments qui sont les enfants pairs de leur parent.",
+      "<strong>:nth-child(2n+1)</strong> cible tous les éléments qui sont les enfants impairs de leur parent.",
+      "<strong>:nth-child(3n+1)</strong> cible tous les éléments qui sont les enfants numéro 1, 4, 7, 10, 13, ... de leur parent.",
+      "<strong>:nth-child(n+3)</strong> cible tous les éléments qui sont les enfants numéro 3, 4, 5, ... de leur parent.",
+    ],
+    boardMarkup: `
+    <assiette />
+    <assiette />
+    <assiette />
+<assiette />
+<assiette />
     <assiette />
     `,
   },
