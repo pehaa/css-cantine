@@ -316,15 +316,14 @@ var levels = [
   },
   {
     selectorName: "en anglais : First of type Pseudo-selector",
-    helpTitle:
-      "Cible l'élément qui est le dernier enfant de son élément parent",
+    helpTitle: "Cible l'élément qui est le premier enfant de son type",
     doThis: "Donnez moi la première assiette, svp.",
     selector: "assiette:first-of-type",
     syntax: ":first-of-type",
     examples: [
-      "<strong>:first-of-type</strong> cible tous les éléments qui sont les derniers enfants de leur parent.",
-      "<strong>p:first-of-type</strong> cible tous les paragraphes qui sont les derniers enfants de leur parent.",
-      "<strong>div p:first-of-type</strong> cible tous les paragraphes qui sont les derniers enfants d'un <tag>div</tag>.",
+      "<strong>:first-of-type</strong> cible tous les éléments qui sont les premiers enfants de leur type.",
+      "<strong>p:first-of-type</strong> cible tous les premiers paragraphes.",
+      "<strong>div p:first-of-type</strong> cible tous les premiers paragraphes qui sont dans un <tag>div</tag>.",
     ],
     boardMarkup: `
     <boite />
@@ -335,15 +334,14 @@ var levels = [
   },
   {
     selectorName: "en anglais : First of type Pseudo-selector",
-    helpTitle:
-      "Cible l'élément qui est le dernier enfant de son élément parent",
+    helpTitle: "Cible l'élément qui est le premier enfant de son type",
     doThis: "Donnez moi la première assiette et la première boite, svp.",
     selector: ":first-of-type",
     syntax: ":first-of-type",
     examples: [
-      "<strong>:first-of-type</strong> cible tous les éléments qui sont les derniers enfants de leur parent.",
-      "<strong>p:first-of-type</strong> cible tous les paragraphes qui sont les derniers enfants de leur parent.",
-      "<strong>div p:first-of-type</strong> cible tous les paragraphes qui sont les derniers enfants d'un <tag>div</tag>.",
+      "<strong>:first-of-type</strong> cible tous les éléments qui sont les premiers enfants de leur type.",
+      "<strong>p:first-of-type</strong> cible tous les premiers paragraphes.",
+      "<strong>div p:first-of-type</strong> cible tous les premiers paragraphes qui sont dans un <tag>div</tag>.",
     ],
     boardMarkup: `
     <boite />
