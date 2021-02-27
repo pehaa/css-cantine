@@ -1,16 +1,45 @@
-var levels = [
-  {
-    doThis: "Je prends des assiettes, svp !",
-    selector: "assiette",
-    helpTitle: "cible des éléments d'un certain type.",
-    selectorName: "en anglais : Type Selector",
+const description = {
+  type: {
+    helpTitle: "cible des éléments en fonction du nom de leur balise.",
+    selectorName: "Type Selector",
     syntax: "A",
     help:
-      "Par type en veut dire une balise (un tag) HTML ou XML, comme <tag>div</tag>, <tag>p</tag>, <tag>ul</tag>, <tag>assiette</tag> etc.",
+      "En français <b>sélecteur de type.</b> Les <b>sélecteurs de type</b> ciblent des éléments en fonction du nom de leur balise (<i>tag</i>) HTML ou XML, comme <tag>div</tag>, <tag>p</tag>, <tag>ul</tag>, <tag>assiette</tag> etc.",
     examples: [
       "<strong>div</strong> cible tous les éléments <tag>div</tag>.",
       "<strong>p</strong> cible tous les éléments <tag>p</tag>, donc tous les paragraphes.",
     ],
+  },
+  class: {
+    selectorName: "Class Selector",
+    helpTitle: "cible les éléments par l'attribut <code>classe</code>",
+    syntax: ".classname",
+    help:
+      "En français <b>sélecteur de classe.</b> Le symbole <strong>.</strong> suivi (sans espace) par le  nom de la classe permet de cibler tous les éléments qui ont cette classe.",
+    examples: [
+      '<strong>.best</strong>  cible tous les éléments avec <strong>class="best"</strong>',
+    ],
+  },
+  descendant: {
+    helpTitle: "cible B qui ont un élément ancêtre A",
+    selectorName: "Descendant Combinator",
+    doThis: "Je vais prendre un toast - celui sur l'assiette, svp...",
+
+    syntax: "A&nbsp;&nbsp;B",
+    help:
+      "En français : le combinateur de descendance. Permet de combiner deux sélecteurs sous la forme  A&nbsp;&nbsp;B.<br> A&nbsp;&nbsp;B cible des éléments qui correspondent au sélecteur <strong>B</strong> uniquement si ceux-ci ont un élément ancêtre qui correspond au premier sélecteur (<strong>A</strong>).<br/> Attention à l'espace entre deux éléments.",
+    examples: [
+      "<strong>p&nbsp;strong</strong> cible les éléments <tag>strong</tag> à l'intérieur des <tag>p</tag>",
+      "<strong>#cool&nbsp;span</strong> cible les éléments <tag>span</tag> à l'intérieur de l'élément avec <strong>id=\"cool\"</strong>",
+    ],
+  },
+}
+
+var levels = [
+  {
+    doThis: "Je prends des assiettes, svp !",
+    selector: "assiette",
+    ...description.type,
     boardMarkup: `
     <assiette/>
     <assiette/>
@@ -19,15 +48,7 @@ var levels = [
   {
     doThis: ".. et aussi 2 boîtes à emporter, svp...",
     selector: "boite",
-    helpTitle: "cible des éléments de certain type.",
-    selectorName: "en anglais : Type Selector",
-    syntax: "A",
-    help:
-      "Par type en veut dire une balise (un tag) HTML ou XML, comme <tag>div</tag>, <tag>p</tag>, <tag>ul</tag>, <tag>assiette</tag> etc.",
-    examples: [
-      "<strong>div</strong> cible tous les éléments <tag>div</tag>.",
-      "<strong>p</strong> cible tous les éléments <tag>p</tag>, donc tous les paragraphes.",
-    ],
+    ...description.type,
     boardMarkup: `
     <boite/>
     <assiette/>
@@ -37,11 +58,12 @@ var levels = [
   {
     doThis: "Je peux avoir la jolie assiette pour ma nièce ?",
     selector: "#jolie",
-    selectorName: "en anglais : ID Selector",
-    helpTitle: "cible un élément par son ID",
+    selectorName: "ID Selector",
+    helpTitle:
+      "cible un élément par son identifiant (l'attribut <code>id</code>)",
     syntax: "#id",
     help:
-      "Avec le symbole <strong>#</strong> suivi (sans espace) par le nom d'identifiant on peut cibler un élément par son <strong>id</strong>",
+      "En français <b>sélecteur d'identifiant.</b> Avec le symbole <strong>#</strong> suivi (sans espace) par le nom d'identifiant on peut cibler un élément par son attribut <strong>id.</strong>",
     examples: [
       '<strong>#cool</strong> cible l\'élément avec <strong>id="cool"</strong>',
     ],
@@ -52,17 +74,56 @@ var levels = [
     `,
   },
   {
-    helpTitle: "cible un élément dans un autre élement.",
-    selectorName: "en anglais : Descendant Selector",
-    doThis: "Je vais prendre un toast - celui sur l'assiette, svp...",
-    selector: "assiette toast",
-    syntax: "A&nbsp;&nbsp;B",
-    help:
-      "A&nbsp;&nbsp;B cible des <strong>B</strong> qui se trouvent dans les <strong>A</strong>.<br/> Attention à l'espace entre deux éléments.",
+    doThis: "Je vais prendre aussi des petits toasts.",
+    selector: ".mini",
+    ...description.class,
+    boardMarkup: `
+    <toast/>
+    <toast class="mini"/>
+    <assiette>
+      <toast class="mini"/>
+    </assiette>
+    <assiette/>
+    `,
+  },
+  {
+    doThis: "Small is the new big. Je prends des mignardises, svp.",
+    selector: ".mini",
+    ...description.class,
+    boardMarkup: `
+    <toast/>
+    <donut class="mini"/>
+    <assiette>
+      <toast class="mini"/>
+    </assiette>
+    <assiette/>
+    `,
+  },
+  {
+    doThis: "Je vais prendre des 'french toasts'.",
+    selector: "[lang='fr']",
+    selectorName: "Attribute selector",
+    helpTitle:
+      "cible un élément selon la présence d'un attribut ou selon la valeur donnée d'un attribut.",
+    syntax: '[attribut="value"], [attribut]',
+    help: "En français <b>sélecteur d'attribut.</b>",
     examples: [
-      "<strong>p&nbsp;strong</strong> cible les éléments <tag>strong</tag> à l'intérieur des <tag>p</tag>",
-      "<strong>#jolie&nbsp;span</strong> cible les éléments <tag>span</tag> à l'intérieur de l'élément avec <strong>id=\"cool\"</strong>",
+      "<strong>[id]</strong> cible tous les éléments qui ont un attribut <code>id</id>",
+      '<strong>[type="text"]</strong> cible tous les éléments qui ont un attribut <strong>type</strong> égal à "text"',
     ],
+    boardMarkup: `
+    <toast/>
+    <toast/>
+    <toast lang="fr"/>
+    <assiette>
+      <toast lang="fr"/>
+    </assiette>
+    <assiette/>
+    `,
+  },
+  {
+    ...description.descendant,
+    selector: "assiette toast",
     boardMarkup: `
     <boite/>
     <assiette>
@@ -72,17 +133,8 @@ var levels = [
     `,
   },
   {
-    selectorName: "en anglais : Descendant Selector",
-    doThis: "... et le cupcake, celui sur la jolie assiette...",
+    ...description.descendant,
     selector: "#jolie cupcake",
-    helpTitle: "cible un élément dans un autre élement.",
-    syntax: "#id&nbsp;&nbsp;A",
-    help:
-      "A&nbsp;&nbsp;B cible des <strong>B</strong> qui se trouvent dans les <strong>A</strong>.<br/> Attention à l'espace entre deux éléments.",
-    examples: [
-      "<strong>p&nbsp;strong</strong> cible les éléments <tag>strong</tag> à l'intérieur des <tag>p</tag>",
-      "<strong>#cool&nbsp;span</strong> cible tous les éléments <tag>span</tag> à l'intérieur de l'élément avec <strong>id=\"cool\"</strong>",
-    ],
     boardMarkup: `
     <boite>
     <donut/>
@@ -96,52 +148,12 @@ var levels = [
     `,
   },
   {
-    doThis: "Je vais prendre aussi des petits toasts.",
-    selector: ".mini",
-    selectorName: "Class Selector",
-    helpTitle: "cible les éléments par le  nom de la classe",
-    syntax: ".classname",
-    help:
-      "Tu vas l'utiliser souvent. Le symbole <strong>.</strong> suivi (sans espace) par le  nom de la classe permet de cibler tous les éléments qui ont cette classe.",
-    examples: [
-      '<strong>.best</strong>  cible tous les éléments avec <strong>class="best"</strong>',
-    ],
-    boardMarkup: `
-    <toast/>
-    <toast class="mini"/>
-    <assiette>
-      <toast class="mini"/>
-    </assiette>
-    <assiette/>
-    `,
-  },
-  {
-    doThis: "Small is the new big. Je prends des mignardises, svp.",
-    selector: ".mini",
-    selectorName: "Class Selector",
-    helpTitle: "cible les éléments par le  nom de la classe",
-    syntax: ".classname",
-    help:
-      "Tu vas l'utiliser souvent. Le symbole <strong>.</strong> suivi (sans espace) par le  nom de la classe permet de cibler tous les éléments qui ont cette classe.",
-    examples: [
-      '<strong>.best</strong>  cible tous les éléments avec <strong>class="best"</strong>',
-    ],
-    boardMarkup: `
-    <toast/>
-    <donut class="mini"/>
-    <assiette>
-      <toast class="mini"/>
-    </assiette>
-    <assiette/>
-    `,
-  },
-  {
     doThis: "Moi, je vais prendre des mini donuts, svp.",
     selector: "donut.mini",
-    helpTitle: "Combiner les sélecteurs",
-    syntax: "A.className",
+    helpTitle: "Combinons les sélecteurs!",
+    syntax: "A.classname",
     help:
-      "A.className veut dire un élément A avec la classe className - en collant des sélecteurs ensemble (sans espace) on ajoute des restrictions. </br></br><strong>assiette.mini</strong> et <strong>assiette&nbsp;&nbsp;.mini</strong> sont deux sélecteurs complétement différents : le premier cible des petites assiettes, le deuxième les petits éléments dans les assiettes.",
+      "A.classname veut dire un élément <strong>A</strong> avec la classe <strong>classname</strong> - en collant des sélecteurs ensemble (sans espace) on ajoute des restrictions. </br></br><strong>assiette.mini</strong> et <strong>assiette&nbsp;&nbsp;.mini</strong> sont deux sélecteurs complétement différents : le premier cible des petites assiettes, le deuxième les petits éléments dans les assiettes.",
     examples: [
       '<strong>ul.important</strong> cible tous éléments <tag>ul</tag> qui ont la classe <strong>class="important"</strong>',
       '<strong>#big.wide</strong> cible un élément avec l\'identifiant <strong>id="big"</strong> qui a aussi la classe <strong>class="wide"</strong>',
@@ -184,8 +196,8 @@ var levels = [
   {
     doThis: "Je peux avoir les assiettes et les boîtes, svp ?",
     selector: "assiette,boite",
-    selectorName: "en anglais : Comma Combinator",
-    helpTitle: "Combine les sélecteurs avec des virgules...!",
+    selectorName: "Selector list (,)",
+    helpTitle: "Liste différents  sélecteurs avec des virgules...!",
     syntax: "A, B",
     help:
       "ceci permet de cibler en même temps les éléments <strong>A</strong> et <strong>B</strong>. On peut ainsi combiner plusieurs types de sélecteurs et en avoir plus de deux.",
@@ -209,8 +221,9 @@ var levels = [
   {
     doThis: "Allez, je veux tout !",
     selector: "*",
-    selectorName: "en anglais : The Universal Selector",
-    helpTitle: "You can select everything!",
+    selectorName: "The Universal Selector",
+    helpTitle:
+      "You can select everything! En français - sélecteur universel.  Il correspond à un élément de n'importe quel type.",
     syntax: "*",
     help: "Cibler l'univers !",
     examples: [
@@ -229,7 +242,7 @@ var levels = [
     `,
   },
   {
-    selectorName: "en anglais : Child Selector",
+    selectorName: "Child Selector",
     syntax: "A > B&nbsp;",
     doThis:
       "Je prends le toast, celui qui est posé directement sur l'assiette...",

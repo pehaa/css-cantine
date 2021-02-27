@@ -111,15 +111,6 @@ $(document).ready(function () {
     showTooltip($(this))
   })
 
-  //Shows the tooltip on the table
-  $(".markup").on("mouseover", "div *", function (e) {
-    el = $(this)
-    var markupElements = $(".markup *")
-    var index = markupElements.index(el) - 1
-    showTooltip($(".table *").eq(index))
-    e.stopPropagation()
-  })
-
   // Shows the tooltip on the table
   $(".markup").on("mouseout", "*", function (e) {
     e.stopPropagation()
