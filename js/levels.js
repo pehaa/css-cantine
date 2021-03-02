@@ -134,6 +134,7 @@ var levels = [
   },
   {
     ...description.descendant,
+    doThis: "Je vais prendre le cupcake sur cette jolie assiette.",
     selector: "#jolie cupcake",
     boardMarkup: `
     <boite>
